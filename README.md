@@ -1,12 +1,10 @@
 # Plugins [![License](https://img.shields.io/:license-apache-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![GoDoc](https://godoc.org/github.com/micro/go-plugins?status.svg)](https://godoc.org/github.com/micro/go-plugins)
 
-Go plugins is a place for third party implementations of Go Micro interfaces.
+Go plugins 是 Go Micro 接口的第三方实现的地方。
 
 ## Overview
-
-Go Micro is built as a pluggable framework using Go interfaces. Plugins enable you to swap out the underlying infrastructure without having 
-to rewrite all your code. This enables running the same software in multiple environments without a ton of work. Read further for more info.
-
+Go Micro 通过使用 Go 接口构架为可插拔的框架。插件使您能够换出底层基础设施，而不需要重写你所有的代码。这允许在多个环境中运行相同的软件，而无需进行大量工作。进一步阅读了解更多信息。
+                                                         
 ## Getting Started
 
 * [Contents](#contents)
@@ -23,17 +21,17 @@ Contents of this repository:
 | Client    | RPC Clients; gRPC, HTTP                                         |
 | Codec     | Message Encoding; BSON, Mercury                                 |
 | Micro     | Micro Toolkit Plugins                                           |
-| Registry  | Service Discovery; Etcd, Gossip, NATS                           |
-| Selector  | Load balancing; Label, Cache, Static                            |
+| Registry  | 服务发现； Etcd, Gossip, NATS                           |
+| Selector  | 负载均衡； Label, Cache, Static                            |
 | Server    | RPC Servers; gRPC, HTTP                                         |
 | Transport | Bidirectional Streaming; NATS, RabbitMQ                         | 
-| Wrapper   | Middleware; Circuit Breakers, Rate Limiting, Tracing, Monitoring|
+| Wrapper   | 中间件; Circuit Breakers, Rate Limiting, Tracing, Monitoring|
 
 ## Usage
 
-Plugins can be added to go-micro in the following ways. By doing so they'll be available to set via command line args or environment variables.
+插件可以通过以下方式添加到 go-micro。这样就可以通过命令行参数或环境变量来设置它们。
 
-Import the plugins in a `plugins.go` file
+在 `plugins.go` 中导入插件
 
 ```go
 package main
@@ -45,7 +43,7 @@ import (
 )
 ```
 
-Create your service and ensure you call `service.Init`
+创建你的服务，确保调用了 `service.Init`
 
 ```go
 package main
@@ -56,16 +54,16 @@ import (
 
 func main() {
 	service := micro.NewService(
-		// Set service name
+		// 设置服务名
 		micro.Name("my.service"),
 	)
 
-	// Parse CLI flags
+	// 解析 CLI flags
 	service.Init()
 }
 ```
 
-Build your service
+编译你的服务
 
 ```
 go build -o service ./main.go ./plugins.go
@@ -73,7 +71,7 @@ go build -o service ./main.go ./plugins.go
 
 ### Environment Variables
 
-Use environment variables to set the
+使用环境变量来设置
 
 ```
 MICRO_BROKER=rabbitmq \
@@ -84,7 +82,7 @@ MICRO_TRANSPORT=nats \
 
 ### Flags
 
-Or use command line flags to enable them
+或者使用命令行 flags 来设置
 
 ```shell
 ./service --broker=rabbitmq --registry=kubernetes --transport=nats
@@ -92,7 +90,7 @@ Or use command line flags to enable them
 
 ### Options
 
-Import and set as options when creating a new service
+导入，在创建一个新的服务时通过 options 设置
 
 ```go
 import (
@@ -101,12 +99,12 @@ import (
 )
 
 func main() {
-	registry := kubernetes.NewRegistry() //a default to using env vars for master API
+	registry := kubernetes.NewRegistry() // a default to using env vars for master API
 
 	service := micro.NewService(
-		// Set service name
+		// 设置服务名
 		micro.Name("my.service"),
-		// Set service registry
+		// 设置服务 registry
 		micro.Registry(registry),
 	)
 }
@@ -114,11 +112,10 @@ func main() {
 
 ## Build
 
-An anti-pattern is modifying the `main.go` file to include plugins. Best practice recommendation is to include
-plugins in a separate file and rebuild with it included. This allows for automation of building plugins and
-clean separation of concerns.
+反模式是修改 `main.go` 文件来包含插件。最佳实践建议是 include 插件在一个单独的文件和重建与它包括。这允许自动化构建插件和关注点的干净分离。
 
-Create file plugins.go
+
+创建 plugins.go 文件
 
 ```go
 package main
@@ -130,7 +127,7 @@ import (
 )
 ```
 
-Build with plugins.go
+结合 plugins.go 来编译
 
 ```shell
 go build -o service main.go plugins.go

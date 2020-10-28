@@ -48,6 +48,8 @@ func (s *subscriber) Unsubscribe() error {
 	return s.s.Unsubscribe()
 }
 
+// 获取地址
+// 如果有多个地址，返回第一个
 func (n *natsBroker) Address() string {
 	if n.conn != nil && n.conn.IsConnected() {
 		return n.conn.ConnectedUrl()
@@ -60,6 +62,9 @@ func (n *natsBroker) Address() string {
 	return ""
 }
 
+// 格式化地址
+// 填充 nats:// 前缀
+// 如果没有地址，返回 nats 的默认地址
 func (n *natsBroker) setAddrs(addrs []string) []string {
 	//nolint:prealloc
 	var cAddrs []string

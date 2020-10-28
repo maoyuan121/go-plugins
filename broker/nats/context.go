@@ -6,7 +6,7 @@ import (
 	"github.com/asim/go-micro/v3/broker"
 )
 
-// setBrokerOption returns a function to setup a context with given value
+// setBrokerOption 返回一个用来设置 context 键值的函数
 func setBrokerOption(k, v interface{}) broker.Option {
 	return func(o *broker.Options) {
 		if o.Context == nil {

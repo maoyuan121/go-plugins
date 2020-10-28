@@ -1,4 +1,4 @@
-// Package http provides a http client
+// 提供一个 http client
 package http
 
 import (
@@ -42,7 +42,7 @@ func init() {
 }
 
 func (h *httpClient) call(ctx context.Context, node *registry.Node, req client.Request, rsp interface{}, opts client.CallOptions) error {
-	// set the address
+	// 设置地址和请求头
 	address := node.Address
 	header := make(http.Header)
 	if md, ok := metadata.FromContext(ctx); ok {
@@ -51,12 +51,13 @@ func (h *httpClient) call(ctx context.Context, node *registry.Node, req client.R
 		}
 	}
 
-	// set timeout in nanoseconds
+	// 设置超时时间 单位为纳秒
 	header.Set("Timeout", fmt.Sprintf("%d", opts.RequestTimeout))
-	// set the content type for the request
+	// 为请求设置 content-type
 	header.Set("Content-Type", req.ContentType())
 
 	// get codec
+	// 根据请求头的 content-type 获取用哪个序列化器
 	cf, err := h.newHTTPCodec(req.ContentType())
 	if err != nil {
 		return errors.InternalServerError("go.micro.client", err.Error())
@@ -84,14 +85,14 @@ func (h *httpClient) call(ctx context.Context, node *registry.Node, req client.R
 		Host:          address,
 	}
 
-	// make the request
+	// 发起请求
 	hrsp, err := http.DefaultClient.Do(hreq.WithContext(ctx))
 	if err != nil {
 		return errors.InternalServerError("go.micro.client", err.Error())
 	}
 	defer hrsp.Body.Close()
 
-	// parse response
+	// 解析响应
 	b, err = ioutil.ReadAll(hrsp.Body)
 	if err != nil {
 		return errors.InternalServerError("go.micro.client", err.Error())

@@ -60,7 +60,7 @@ func (m *memcacheCache) String() string {
 	return "memcache"
 }
 
-// NewCache returns a new memcache Cache
+// NewCache 返回一个新的 memcache Cache
 func NewCache(opts ...cache.Option) cache.Cache {
 	var options cache.Options
 	for _, o := range opts {
