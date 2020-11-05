@@ -1,12 +1,14 @@
 # Endpoint Wrapper
 
-The endpoint wrapper is a function which allows you to execute a wrapper at a more granular level. 
-At the moment client or handler wrappers are executed on any request method. The endpoint wrapper 
-makes it much easier to specify exact methods to execute on otherwise acting as a pass through.
+Endpint 包装器是一种函数，它允许您在更细粒度的级别上执行包装器。
+此时客户端或处理程序包装器在任何请求方法上执行。
+端点包装器可以更容易地指定要执行的精确方法，否则将充当传递。
+
+
 
 ## Usage
 
-When creating your service, add the wrapper like so.
+创建服务，如下一样添加包装器。
 
 ```go
 srv := micro.NewService(

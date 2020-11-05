@@ -57,7 +57,7 @@ type stream struct {
 	conn stan.Conn
 }
 
-// Publish a message to a topic
+// 发布一个消息到 topic 上
 func (s *stream) Publish(topic string, msg interface{}, opts ...events.PublishOption) error {
 	// validate the topic
 	if len(topic) == 0 {

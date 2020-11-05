@@ -2,7 +2,7 @@ package nats
 
 import "crypto/tls"
 
-// Options which are used to configure the nats stream
+// 我们用 Options 配置 nats stream
 type Options struct {
 	ClusterID string
 	ClientID  string
@@ -10,7 +10,7 @@ type Options struct {
 	TLSConfig *tls.Config
 }
 
-// Option is a function which configures options
+// Option 是一个函数 用来配置 options
 type Option func(o *Options)
 
 // ClusterID sets the cluster id for the nats connection

@@ -1,6 +1,7 @@
 package redis
 
 import (
+	"github.com/micro/go-micro/v2"
 	"log"
 	"time"
 
@@ -48,17 +49,17 @@ func (m *redisCache) String() string {
 	return "redis"
 }
 
-// NewCache returns a new redis Cache
+// NewCache 返回一个新的 redis Cache
 func NewCache(opts ...cache.Option) cache.Cache {
 	var options cache.Options
 	for _, o := range opts {
 		o(&options)
 	}
 
-	// get and set the nodes
+	// 获取设置 nodes
 	nodes := options.Nodes
 	if len(nodes) == 0 {
-		nodes = []string{"127.0.0.1:6379", "127.0.0.1:6380", "127.0.0.1:6381"}
+		nodes = []string{"127.0.0.1:6379", "127.0.0.1:6380", "127.0.0.1:6381"} // 默认节点
 	}
 
 	cluster := redisCluster.Cluster{
